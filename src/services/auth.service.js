@@ -1,4 +1,4 @@
-import {setItem, getItem, removeItem} from '../utilities/localStorage.utilities'
+import { getItem, removeItem} from '../utilities/localStorage.utilities'
 
 //logout the user
 export const logout = () => {

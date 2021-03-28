@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 
 
-const Lists = () => {
+const Lists = ({setAuth}) => {
    
     return (
 

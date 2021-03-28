@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCurrentUser,logout } from "../../services/auth.service";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 const Layout = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+//   const [currentUser, setCurrentUser] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const setAuth = (boolean) => {
-    setIsAuthenticated(boolean);
-  }
 
   //this will check if person is still validated
   const isAuth = async () => {
@@ -22,10 +20,9 @@ const Layout = (props) => {
       const parseRes = await response.json()
 
       //checks if user is authenticated 
-      parseRes === true ? setIsAuthenticated(true) :
+      parseRes === true ? setIsAuthenticated(true):
         setIsAuthenticated(false);
-
-      // console.log(parseRes);
+           
     } catch (err) {
       console.error(err.message)
     }
@@ -33,19 +30,15 @@ const Layout = (props) => {
 
   useEffect(() => {
     isAuth()
-     // grab getCurrentuser from the auth service
-    const user =  getCurrentUser();
-
-    if (user) {
-    // Set current user to the currentUser state
-      setCurrentUser(user);
-    }
   }, [])
 
   
-  const logOut = () => {
-    logout()
-  }
+  const logout = () => {
+    // e.preventDefault()
+    localStorage.removeItem("token")
+    isAuthenticated(false)
+    toast.success("Logged out successfully!")
+}
 
   return (
     <div>
@@ -59,40 +52,33 @@ const Layout = (props) => {
               Home
             </Link>
           </li>
-          {currentUser && (
+          {isAuthenticated && (
             <li className="nav-item">
-              <Link to={"/dashboard"} className="nav-link active" aria-current="page">
+              <Link to={"/dashboard"} className="nav-link" aria-current="page">
                 Profile
               </Link>
             </li>
           )}
-          {currentUser && (
+          {isAuthenticated && (
             <li className="nav-item">
               <Link to={"/recipes"} className="nav-link">
                 My Recipes
               </Link>
             </li>
           )}
-          {currentUser && (
+          {isAuthenticated && (
             <li className="nav-item">
               <Link to={"/lists"} className="nav-link">
                 My Lists
               </Link>
             </li>
           )}
-          {/* {currentUser && (
-            <li className="nav-item">
-              <Link to={profUrl} className="nav-link">
-               {currentUser.username}'s Profile
-              </Link>
-            </li>
-          )} */}
         </div>
         
-        {currentUser ? (
+        {isAuthenticated ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/login" className="nav-link" onClick={logout}>
                   Logout
                 </a>
               </li>

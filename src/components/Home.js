@@ -1,8 +1,10 @@
 import React, {Fragment, useState, useEffect} from 'react';
+import { getCurrentUser } from '../services/auth.service';
 
 
 const Home = () => {
-   
+
+
     return (
 
         <Fragment>

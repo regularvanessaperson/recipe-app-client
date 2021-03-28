@@ -73,6 +73,16 @@ const App = () => {
                   isAuthenticated ? (<Dashboard  {...props} setAuth={setAuth} />) : (
                     <Redirect to="/login" />
                   )} />
+              <Route exact path="/lists"
+                render={props =>
+                  isAuthenticated ? (<Lists  {...props} setAuth={setAuth} />) : (
+                    <Redirect to="/login" />
+                  )} />
+              <Route exact path="/recipes"
+                render={props =>
+                  isAuthenticated ? (<Recipes  {...props} setAuth={setAuth} />) : (
+                    <Redirect to="/login" />
+                  )} />
             </Switch>
           </div>
         </Layout>
