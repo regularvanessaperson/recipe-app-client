@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { getCurrentUser } from '../services/auth.service';
 
 
 const Lists = ({ setAuth }) => {
     const [lists, setLists] = useState("")
 
-    const getRecipes = async () => {
+    const getLists = async () => {
         try {
             const user = getCurrentUser()
             console.log(user)
@@ -16,7 +17,7 @@ const Lists = ({ setAuth }) => {
             const parseRes = await response.json()
 
             console.log(JSON.stringify(parseRes[0]))
-            setRecipes(JSON.stringify(parseRes[0]))
+            setLists(JSON.stringify(parseRes[0]))
 
         } catch (err) {
             console.error(err.message)
@@ -24,12 +25,13 @@ const Lists = ({ setAuth }) => {
     }
 
     useEffect(() => {
-        getRecipes()
+        getLists()
     }, [])
     return (
 
         <Fragment>
             <h1>This is the lists</h1>
+            <div>{lists}</div>
         </Fragment>
     )
 }
