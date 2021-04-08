@@ -16,6 +16,7 @@ import Login from "./components/Login"
 import Register from "./components/Register"
 import Lists from "./components/Lists"
 import Recipes from "./components/Recipes"
+import ListForm from "./components/ListForm"
 
 
 toast.configure()
@@ -81,6 +82,11 @@ const App = () => {
               <Route exact path="/recipes"
                 render={props =>
                   isAuthenticated ? (<Recipes  {...props} setAuth={setAuth} />) : (
+                    <Redirect to="/login" />
+                  )} />
+              <Route exact path="/listForm"
+                render={props =>
+                  isAuthenticated ? (<ListForm  {...props} setAuth={setAuth} />) : (
                     <Redirect to="/login" />
                   )} />
             </Switch>
