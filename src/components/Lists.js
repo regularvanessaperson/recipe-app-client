@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { getCurrentUser } from '../services/auth.service';
-
-
+import { Link } from "react-router-dom";
+import ListForm from "./ListForm"
 const Lists = ({ setAuth }) => {
-    const [lists, setLists] = useState("")
+    const [lists, setLists] = useState([])
 
     const getLists = async () => {
         try {
@@ -16,8 +16,8 @@ const Lists = ({ setAuth }) => {
 
             const parseRes = await response.json()
 
-            console.log(JSON.stringify(parseRes[0]))
-            setLists(JSON.stringify(parseRes[0]))
+            console.log((parseRes))
+            setLists(JSON.stringify(parseRes))
 
         } catch (err) {
             console.error(err.message)
@@ -31,6 +31,9 @@ const Lists = ({ setAuth }) => {
 
         <Fragment>
             <h1>This is the lists</h1>
+            <Link to={"/listForm"} className="nav-link">
+              Make a new list
+            </Link>
             <div>{lists}</div>
         </Fragment>
     )

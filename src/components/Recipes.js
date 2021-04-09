@@ -3,7 +3,7 @@ import { getCurrentUser } from '../services/auth.service';
 
 
 const Recipes = () => {
-    const [recipes, setRecipes] = useState("")
+    const [recipes, setRecipes] = useState([])
 
     const getRecipes = async () =>{
         try {
@@ -14,8 +14,8 @@ const Recipes = () => {
 
             const parseRes = await response.json()
            
-            console.log(JSON.stringify(parseRes[0]))
-            setRecipes(JSON.stringify(parseRes[0]))
+            console.log(parseRes)
+            setRecipes(JSON.stringify(parseRes))
 
         } catch (err) {
             console.error(err.message)
